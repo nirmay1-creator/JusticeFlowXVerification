@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Justice Case & Evidence Control</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+
+<div class="topbar">
+    
+⚖ JUSTICE CASE & EVIDENCE CONTROL
+<span class="status online">SYSTEM SECURE</span>
+
+</div>
+
+<div class="scene">
+
+<!-- CASE CORE -->
+<div class="panel">
+<h2>📂 Case Initialization</h2>
+<input id="caseId" placeholder="Case ID">
+<input id="officer" placeholder="Officer ID">
+<select id="role">
+<option>Investigator</option>
+<option>Supervisor</option>
+<option>Forensics</option>
+</select>
+<textarea id="caseDesc" placeholder="Case Summary"></textarea>
+<button onclick="createCase()">Initialize Case</button>
+</div>
+
+<!-- EVIDENCE -->
+<div class="panel">
+<h2>🔐 Evidence Upload</h2>
+<input id="evidenceName" placeholder="Evidence Label">
+<select id="evidenceType">
+<option>Image</option>
+<option>Video</option>
+<option>Audio</option>
+<option>Document</option>
+</select>
+<input type="file" id="file">
+<button onclick="addEvidence()">Secure Evidence</button>
+</div>
+
+<!-- VAULT -->
+<div class="panel vault">
+<h2>📦 Evidence Vault</h2>
+<ul id="evidenceList"></ul>
+</div>
+
+<!-- TIMELINE -->
+<div class="panel timeline">
+<h2>⏱ Case Timeline</h2>
+<ul id="timeline"></ul>
+</div>
+
+<!-- CUSTODY -->
+<div class="panel custody">
+<h2>🧾 Chain of Custody</h2>
+<ul id="custodyLog"></ul>
+</div>
+
+<!-- AI -->
+<div class="panel ai">
+<h2>🧠 AI Integrity Scan</h2>
+<div id="aiResult">Awaiting Data…</div>
+<button onclick="runAI()">Run Analysis</button>
+
+</div>
+
+</div>
+<div class="bottom-nav">
+  <button class="back-btn" onclick="goDashboard()">⬅ Back to Dashboard</button>
+</div>
+<script src="case.js"></script>
+
+</body>
+</html>

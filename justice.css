@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle at top, #020c1a, #00040a);
+  color: #0ff;
+  overflow-x: hidden;
+}
+
+/* cyber grid background */
+body::before {
+  content:"";
+  position: fixed; inset:0;
+  background:
+    linear-gradient(transparent 96%, rgba(0,255,255,0.05) 97%),
+    linear-gradient(90deg, transparent 96%, rgba(0,255,255,0.05) 97%);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+  z-index:-1;
+}
+@keyframes gridMove { from{background-position:0 0,0 0;} to{background-position:600px 600px,600px 600px;} }
+
+/* navbar */
+.navbar {
+  display:flex; align-items:center; gap:20px;
+  padding:15px 30px;
+  background: rgba(0,0,0,0.6);
+  border-bottom:1px solid #0ff;
+  box-shadow:0 0 25px #0ff;
+}
+.logo {height:45px; filter: drop-shadow(0 0 10px #0ff);}
+.nav-title {font-size:20px; font-weight:600; text-shadow:0 0 15px #0ff;}
+.nav-links a {
+  color:#0ff; text-decoration:none; margin-left:20px;
+  padding:6px 12px; border:1px solid rgba(0,255,255,0.3); border-radius:8px;
+  transition:0.3s;
+}
+.nav-links a:hover { background: rgba(0,255,255,0.15); box-shadow:0 0 20px #0ff; }
+
+/* main container */
+.container {
+  display:flex; justify-content:center; gap:60px; padding:80px 20px;
+}
+
+/* scan cards */
+.scan-box {
+  width:300px; padding:40px 25px; text-align:center;
+  border-radius:18px; background: rgba(0,255,255,0.05);
+  border:1px solid rgba(0,255,255,0.35); box-shadow:0 0 30px rgba(0,255,255,0.3);
+  position:relative; overflow:hidden; animation: float 6s ease-in-out infinite;
+  cursor:pointer;
+}
+.scan-box:nth-child(2){ animation-delay:3s; }
+
+@keyframes float { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-12px);} }
+
+.scan-box::before {
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(to bottom, transparent, rgba(0,255,255,0.25), transparent);
+  animation: scanLine 3s linear infinite;
+}
+@keyframes scanLine { from{transform:translateY(-100%);} to{transform:translateY(100%);} }
+
+.scan-box i {
+  font-size:70px; margin-bottom:15px; text-shadow:0 0 25px #0ff;
+  animation: iconPulse 2s infinite;
+}
+@keyframes iconPulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.1);opacity:0.7;} }
+
+.scan-box h2{ margin:10px 0; font-size:20px; }
+.scan-box p{ font-size:13px; opacity:0.8; }
+
+/* scan button */
+.scan-btn {
+  display:inline-block; margin-top:20px; padding:12px 26px;
+  border:1px solid #0ff; border-radius:50px; color:#0ff;
+  text-decoration:none; letter-spacing:1px; position:relative; overflow:hidden;
+  transition:0.4s;
+}
+.scan-btn::after {
+  content:""; position:absolute; inset:0; border-radius:50px;
+  box-shadow:0 0 20px #0ff; opacity:0; transition:0.4s;
+}
+.scan-btn:hover { background: rgba(0,255,255,0.2); transform: scale(1.05); }
+.scan-btn:hover::after { opacity:1; }
+
+/* AI ring around scan-box */
+.scan-box::after {
+  content:""; position:absolute; width:220px; height:220px;
+  border-radius:50%; border:1px dashed rgba(0,255,255,0.5);
+  top:50%; left:50%; transform:translate(-50%,-50%) rotate(0deg);
+  animation: rotateRing 12s linear infinite;
+}
+@keyframes rotateRing { from{transform:translate(-50%,-50%) rotate(0deg);} to{transform:translate(-50%,-50%) rotate(360deg);} }
+
+/* fingerprint pulse */
+.fingerprint-scan {
+  position:absolute; width:140px; height:140px; border:2px solid cyan;
+  border-radius:50%; top:50%; left:50%;
+  transform:translate(-50%,-50%) scale(1); pointer-events:none;
+  animation: pulseScan 2s infinite;
+}
+@keyframes pulseScan { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5;} 50%{transform:translate(-50%,-50%) scale(1.3);opacity:0.2;} }
+
+/* retina scan */
+.retina-scan {
+  position:absolute; width:160px; height:160px; border:2px dashed cyan;
+  border-radius:50%; top:50%; left:50%;
+  transform:translate(-50%,-50%) rotate(0deg); pointer-events:none;
+  animation: rotateRetina 3s linear infinite;
+}
+@keyframes rotateRetina { from{transform:translate(-50%,-50%) rotate(0deg);} to{transform:translate(-50%,-50%) rotate(360deg);} }
+
+/* access popup */
+.access-popup {
+  position:fixed; top:40%; left:50%; transform:translate(-50%,-50%) scale(0);
+  background: rgba(0,255,255,0.1); border:2px solid cyan; border-radius:15px;
+  padding:25px 40px; font-size:24px; color:#0ff; text-align:center;
+  box-shadow:0 0 40px cyan; z-index:10000; transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.access-popup.show { transform:translate(-50%,-50%) scale(1); opacity:1; }
+
+/* boot overlay */
+#bootOverlay {
+  position:fixed; inset:0; background:#000; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; color:#0ff; font-family:'Orbitron',sans-serif;
+  font-size:18px; z-index:9999;
+}
+#bootOverlay h1{ font-size:36px; margin-bottom:20px; animation:flickerText 1.5s infinite; }
+@keyframes flickerText{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* terminal logs */
+#terminalLogs {
+  position:fixed; bottom:10px; right:10px; width:350px; height:180px;
+  background:rgba(0,0,0,0.7); border:1px solid #0ff; border-radius:12px;
+  padding:10px; font-family:monospace; font-size:12px; color:#0ff;
+  overflow-y:auto; z-index:5000; box-shadow:0 0 25px #0ff;
+}
+
+/* particles */
+.particle {
+  position:fixed; width:3px; height:3px; background:cyan; border-radius:50%;
+  pointer-events:none; opacity:0.6; animation: floatParticle linear infinite;
+}
+@keyframes floatParticle { from{transform:translateY(0); opacity:0;} 30%{opacity:0.8;} to{transform:translateY(-120vh); opacity:0;} }
+/* Allow clicks through visual overlays */
+#bootOverlay,
+.particle,
+#terminalLogs,
+.fingerprint-scan,
+.retina-scan {
+  pointer-events: none;
+}
+
+/* Make sure scan buttons are clickable */
+.scan-btn {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* Navbar always clickable */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  background: rgba(0, 10, 20, 0.9);
+  border-bottom: 1px solid #00ffff55;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 600;
+  color: #00ffff;
+}
+
+.nav-center {
+  display: flex;
+  gap: 26px;
+}
+
+.nav-link {
+  color: #8ffcff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.85;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #00ffff;
+  opacity: 1;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.system-status {
+  font-size: 12px;
+  color: #00ff88;
+}
+
+/* DROPDOWN */
+.menu {
+  position: relative;
+}
+
+#menuBtn {
+  font-size: 22px;
+  color: #00ffff;
+  cursor: pointer;
+}
+
+/* Hidden by default */
+.dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: #020c14;
+  border: 1px solid #00ffff44;
+  display: none;
+  flex-direction: column;
+  min-width: 180px;
+  z-index: 999;
+}
+
+/* Visible state */
+.dropdown.show {
+  display: flex;
+}
+
+.dropdown a {
+  padding: 10px 14px;
+  color: #8ffcff;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  background: #00ffff22;
+}
+/* BRAND BASE */
+.brand {
+  position: relative;
+  color: #0ff; /* text color remains */
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  
+  display: inline-block;
+  overflow: hidden;
+  text-shadow: none; /* remove glow */
+}
+
+/* SCAN LINE (always moving) */
+.brand::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(0,255,255,0) 0%,
+    rgba(0,255,255,0.2) 50%,
+    rgba(0,255,255,0) 100%
+  );
+  pointer-events: none;
+  animation: scanLine 3s infinite linear;
+}
+
+@keyframes scanLine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* GLITCH PSEUDO-ELEMENTS */
+.brand.glitch::before,
+.brand.glitch::after.glitch {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: #0ff;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+  text-shadow: none; /* remove glow from glitch too */
+}
+
+/* Red glitch */
+.brand.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 red; /* optional: keeps glitch color effect */
+  animation: glitchTop 2s infinite linear alternate-reverse;
+}
+
+/* Blue glitch */
+.brand.glitch::after.glitch {
+  left: -2px;
+  text-shadow: -2px 0 blue; /* optional: keeps glitch color effect */
+  animation: glitchBottom 2s infinite linear alternate-reverse;
+}
+
+/* Glitch Animations */
+@keyframes glitchTop {
+  0% { clip: rect(0,9999px,0,0); transform: translate(0,0); }
+  10% { clip: rect(0,9999px,10px,0); transform: translate(-2px,-2px); }
+  20% { clip: rect(5px,9999px,15px,0); transform: translate(2px,2px); }
+  30% { clip: rect(10px,9999px,20px,0); transform: translate(-1px,1px); }
+  40% { clip: rect(0,9999px,5px,0); transform: translate(1px,-1px); }
+  50% { clip: rect(5px,9999px,10px,0); transform: translate(-2px,0); }
+  60% { clip: rect(0,9999px,5px,0); transform: translate(2px,-2px); }
+  70% { clip: rect(10px,9999px,15px,0); transform: translate(-1px,1px); }
+  80% { clip: rect(0,9999px,10px,0); transform: translate(1px,-1px); }
+  90% { clip: rect(5px,9999px,15px,0); transform: translate(-2px,2px); }
+  100% { clip: rect(0,9999px,5px,0); transform: translate(0,0); }
+}
+
+@keyframes glitchBottom {
+  0% { clip: rect(0,9999px,0,0); transform: translate(0,0); }
+  10% { clip: rect(0,9999px,15px,0); transform: translate(2px,2px); }
+  20% { clip: rect(5px,9999px,10px,0); transform: translate(-2px,-2px); }
+  30% { clip: rect(0,9999px,5px,0); transform: translate(1px,-1px); }
+  40% { clip: rect(10px,9999px,20px,0); transform: translate(-1px,1px); }
+  50% { clip: rect(0,9999px,5px,0); transform: translate(2px,0); }
+  60% { clip: rect(5px,9999px,15px,0); transform: translate(-2px,2px); }
+  70% { clip: rect(0,9999px,10px,0); transform: translate(1px,-1px); }
+  80% { clip: rect(5px,9999px,20px,0); transform: translate(-1px,1px); }
+  90% { clip: rect(0,9999px,15px,0); transform: translate(2px,-2px); }
+  100% { clip: rect(0,9999px,0,0); transform: translate(0,0); }
+}

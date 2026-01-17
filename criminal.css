@@ -1,0 +1,275 @@
+/* ================= General Body ================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #020024, #090979, #00d4ff);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ================= Topbar ================= */
+.topbar {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 0 15px cyan;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* ================= Scanner Section ================= */
+.scanner-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.scanner-box {
+    position: relative;
+    width: 320px;   /* slightly larger for better alignment */
+    height: 320px;
+    border: 2px solid cyan;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 25px cyan;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scanner-box .scan-line {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: lime;
+    animation: scanLine 2s linear infinite;
+}
+
+@keyframes scanLine {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+.scanner-box .highlight {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,255,255,0.05);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.images-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.images-container img {
+    max-width: 45%;
+    max-height: 80%;
+    border-radius: 12px;
+    border: 1px solid cyan;
+    box-shadow: 0 0 20px cyan;
+    transition: transform 0.5s;
+}
+
+.images-container img:hover {
+    transform: scale(1.05);
+}
+
+/* ================= Status ================= */
+.status {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+    color: cyan;
+    text-shadow: 0 0 15px #0ff;
+}
+
+.status.red { color: red; }
+.status.green { color: lime; }
+
+/* ================= Criminal Grid ================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.criminal-card {
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid cyan;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s all;
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0 0 20px cyan;
+    font-weight: 500;
+    position: relative;
+}
+
+.criminal-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 30px lime;
+}
+
+/* ================= Subject Record ================= */
+.record {
+    margin: 30px auto;
+    width: 85%;
+    max-width: 600px;
+    padding: 25px 30px;
+    border: 1px solid cyan;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0 0 25px cyan;
+    transform: rotateX(0deg);
+    opacity: 0;
+    animation: fadeInRecord 1s forwards;
+}
+
+.record.hidden {
+    opacity: 0;
+    transform: rotateX(90deg);
+    pointer-events: none;
+}
+
+.record h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 0 15px cyan;
+}
+
+/* Each info row with proper alignment */
+.record p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.05);
+    transition: 0.3s background;
+}
+
+.record p:hover {
+    background: rgba(0, 255, 255, 0.15);
+}
+
+.record p strong {
+    color: #0ff;
+    min-width: 120px; /* label width fixed for alignment */
+}
+
+/* Record fade-in animation */
+@keyframes fadeInRecord {
+    0% { opacity: 0; transform: rotateX(90deg); }
+    100% { opacity: 1; transform: rotateX(0deg); }
+}
+
+/* ================= Back Button ================= */
+.back {
+    display: block;
+    text-align: center;
+    margin: 25px auto;
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: 1px solid cyan;
+    color: cyan;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s all;
+}
+
+.back:hover {
+    background: rgba(0,255,255,0.2);
+    box-shadow: 0 0 15px lime;
+}
+
+/* ================= Boot Overlay ================= */
+#bootOverlay {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: #000;
+    color: #0ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: monospace;
+}
+
+#bootOverlay h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px cyan;
+}
+
+#bootLog {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* ================= Particles ================= */
+.particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: cyan;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: floatParticle linear infinite;
+    z-index: 1;
+}
+
+@keyframes floatParticle {
+    0% { transform: translateY(0); opacity:0; }
+    30% { opacity:0.8; }
+    100% { transform: translateY(-120vh); opacity:0; }
+}
+
+/* ================= Access Popup ================= */
+#accessPopup {
+    position: fixed;
+    top:20px;
+    left:50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    text-shadow: 0 0 20px cyan;
+    transition: 0.5s all;
+}
+
+#accessPopup.granted { background: rgba(0,255,0,0.2); color: lime; box-shadow:0 0 20px lime; }
+#accessPopup.denied { background: rgba(255,0,0,0.2); color: red; box-shadow:0 0 20px red; }
+.back-btn {
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 6px 14px;
+  cursor: pointer;
+}

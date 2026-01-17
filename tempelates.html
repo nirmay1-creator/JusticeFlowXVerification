@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Face Scanner</title>
+  <link rel="stylesheet" href="templates.css">
+</head>
+<body>
+
+<div class="scanner-box">
+  <h2>🧬 AI Face Scanner</h2>
+
+  <input id="user_id" placeholder="Enter User ID">
+
+  <button id="scanBtn">Start Scan</button>
+
+  <div id="cameraContainer" style="display:none; position:relative; margin-top:20px;">
+    <video id="video" width="320" height="240" autoplay></video>
+    <div class="scan-line"></div>
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <div id="result" class="result"></div>
+   <a href="index.html" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+<script>
+const video = document.getElementById("video");
+const cameraContainer = document.getElementById("cameraContainer");
+const scanBtn = document.getElementById("scanBtn");
+const progressBar = document.getElementById("progressBar");
+const resultDiv = document.getElementById("result");
+
+let stream;
+
+scanBtn.addEventListener("click", async () => {
+    const userId = document.getElementById("user_id").value.trim();
+    if (!userId) {
+        alert("Please enter User ID!");
+        return;
+    }
+
+    cameraContainer.style.display = "block";
+
+    if (!stream) {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            alert("Camera error: " + err);
+            return;
+        }
+    }
+
+    resultDiv.innerHTML = "";
+    progressBar.style.width = "0%";
+
+    let progress = 0;
+    const scanInterval = setInterval(() => {
+        progress += 2;
+        progressBar.style.width = progress + "%";
+        if (progress >= 100) {
+            clearInterval(scanInterval);
+            captureAndSend(userId);
+        }
+    }, 50);
+});
+
+async function captureAndSend(userId) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 320;
+    canvas.height = 240;
+    canvas.getContext("2d").drawImage(video, 0, 0, 320, 240);
+
+    resultDiv.innerHTML = `<span class="loading-dots">Loading<span>.</span><span>.</span><span>.</span></span>`;
+
+    try {
+        const res = await fetch("http://127.0.0.1:8675/scan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: userId,
+                image: canvas.toDataURL("image/jpeg")
+            })
+        });
+
+        const text = await res.text();
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch(e) {
+            console.error("Raw response:", text);
+            throw new Error("Invalid JSON from server");
+        }
+
+        if (data.error) {
+            resultDiv.innerHTML = "❌ " + data.error;
+        } else {
+            resultDiv.innerHTML = `
+                <div class="result-content">
+                    <strong>Scan Results for ${userId}:</strong><br>
+                    👁 Eye Match: ${data.eye_match}%<br>
+                    🦷 Jaw Match: ${data.jaw_match}%<br>
+                    🤖 Overall Match: ${data.overall}%<br>
+                    🚨 Criminal Record: ${data.criminal_status}
+                </div>
+                
+            `;
+        }
+
+    } catch (err) {
+        alert("Scan failed: " + err.message);
+        resultDiv.innerHTML = "";
+    }
+}
+</script>
+
+
+</body>
+</html>

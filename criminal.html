@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Criminal Intelligence</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="criminal.css">
+
+</head>
+<body>
+
+<header class="topbar">
+  🚨 National Criminal Intelligence System
+</header>
+
+<section class="scanner-section">
+  <div class="scanner-box">
+    <div class="scan-line"></div>
+    <div class="highlight"></div>
+
+    <div class="images-container">
+      <img id="faceImg" class="scan-face" src="faces/placeholder.jpg" alt="Face">
+      <img id="fingerImg" class="scan-finger" src="fingers/placeholder.png" alt="Fingerprint">
+    </div>
+  </div>
+
+  <div class="status" id="scanStatus">
+    Select a criminal from the database
+  </div>
+</section>
+
+<section class="record hidden" id="subjectRecord">
+  <h2>Subject Details</h2>
+  <p><strong>Name:</strong> <span id="recName"></span></p>
+  <p><strong>DOB:</strong> <span id="recDOB"></span></p>
+  <p><strong>Citizenship:</strong> <span id="recCitizenship"></span></p>
+  <p><strong>Crime:</strong> <span id="recCrime"></span></p>
+  <p><strong>Status:</strong> <span id="recStatus"></span></p>
+  <p><strong>Case ID:</strong> <span id="recCase"></span></p>
+  <p><strong>Last Location:</strong> <span id="recLocation"></span></p>
+</section>
+
+<h2 class="db-title">⚠ Wanted Criminal Database</h2>
+
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="Search criminal name...">
+  <select id="filterSelect">
+    <option>All</option>
+    <option>Wanted</option>
+    <option>Arrested</option>
+    <option>Under Investigation</option>
+    
+  </select>
+</div>
+
+<section class="grid" id="criminalGrid"></section>
+
+
+<script src="criminal.js"></script>
+<div>
+  <button class="back-btn" onclick="goDashboard()">⬅ Back to Dashboard</button>
+  </div>
+</body>
+</html>

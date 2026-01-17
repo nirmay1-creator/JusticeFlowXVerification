@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System Health & Security</title>
+  <link rel="stylesheet" href="system.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <span class="brand">System Health & Security</span>
+    <span class="status" id="systemStatus">ONLINE</span>
+  </nav>
+
+  <div class="dashboard">
+
+    <!-- CPU Card -->
+    <div class="card cpu-card">
+      <i class='bx bx-cpu'></i>
+      <h3>CPU Usage</h3>
+      <div class="meter">
+        <div id="cpuMeter"></div>
+        <div class="scan-line"></div>
+      </div>
+      <span id="cpuValue">0%</span>
+      <div class="extra-info">
+        <p>Threads: <span id="cpuThreads">0</span></p>
+        <p>Clock: <span id="cpuClock">0</span> GHz</p>
+      </div>
+    </div>
+
+    <!-- Memory Card -->
+    <div class="card memory-card">
+      <i class='bx bx-memory-card'></i>
+      <h3>Memory Usage</h3>
+      <div class="meter">
+        <div id="memoryMeter"></div>
+        <div class="scan-line"></div>
+      </div>
+      <span id="memoryValue">0%</span>
+      <div class="extra-info">
+        <p>Used: <span id="memUsed">0</span> GB</p>
+        <p>Free: <span id="memFree">0</span> GB</p>
+      </div>
+    </div>
+
+    <!-- Disk Card -->
+    <div class="card disk-card">
+      <i class='bx bx-hdd'></i>
+      <h3>Disk Usage</h3>
+      <div class="meter">
+        <div id="diskMeter"></div>
+        <div class="scan-line"></div>
+      </div>
+      <span id="diskValue">0%</span>
+      <div class="extra-info">
+        <p>Read: <span id="diskRead">0</span> MB/s</p>
+        <p>Write: <span id="diskWrite">0</span> MB/s</p>
+      </div>
+    </div>
+
+    <!-- Security Card -->
+    <div class="card security-card">
+      <i class='bx bx-shield'></i>
+      <h3>Security Status</h3>
+      <span id="securityStatus" class="secure">SECURE</span>
+      <div class="extra-info">
+        <p>Threats Detected: <span id="threats">0</span></p>
+        <p>Firewall: <span id="firewall">Active</span></p>
+      </div>
+    </div>
+    <!-- Back to Dashboard Button -->
+<div class="back-btn-container">
+  <button id="backBtn"><i class='bx bx-left-arrow'></i> Back to Dashboard</button>
+</div>
+
+
+  </div>
+
+  <script src="system.js"></script>
+
+</body>
+</html>

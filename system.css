@@ -1,0 +1,122 @@
+/* GENERAL BODY */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #01010f;
+  color: #0ff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #000012;
+  border-bottom: 1px solid #0ff;
+}
+
+.navbar .brand {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.navbar .status {
+  font-weight: bold;
+  color: #0f0;
+}
+
+/* DASHBOARD GRID */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  perspective: 1000px; /* for 3D tilt */
+}
+
+/* CARD BASE */
+.card {
+  background: #000018;
+  border: 1px solid #0ff;
+  border-radius: 15px;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 3D Tilt on Hover */
+.card:hover {
+  transform: rotateY(10deg) rotateX(5deg);
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff44 inset;
+}
+
+/* ICONS */
+.card i {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #0ff;
+}
+
+.card h3 {
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* METER */
+.meter {
+  width: 100%;
+  height: 22px;
+  background: #001;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.meter div {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0ff, #0f0);
+  transition: width 0.5s ease;
+  border-radius: 12px;
+}
+
+/* HOLOGRAPHIC SCAN LINE */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0,255,255,0) 0%,
+    rgba(0,255,255,0.25) 50%,
+    rgba(0,255,255,0) 100%
+  );
+  pointer-events: none;
+  animation: scan 2s infinite linear;
+}
+
+@keyframes scan {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* VALUE TEXT */
+.card span {
+  font-weight: bold;
+  color: #0ff;
+}
+
+/* EXTRA INFO BELOW METERS */
+.extra-info p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+/* SECURITY CARD COLORS */
+.security-card #securityStatus.secure { color: #0f0; font-weight: bold; }
+.security-card #securityStatus.alert { color: #f00; font-weight: bold; }

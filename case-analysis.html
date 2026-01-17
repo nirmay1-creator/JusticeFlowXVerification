@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Justice AI Core</title>
+<link rel="stylesheet" href="case-analysis.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+
+<header class="system-header">
+  <h1>⚖ JUSTICE AI CORE</h1>
+  <p>AI Decision Support System · Human Authority Mandatory</p>
+</header>
+
+<!-- COMMAND CONSOLE -->
+<section class="console">
+  <div class="status">
+    <span class="pulse"></span> SYSTEM ONLINE
+  </div>
+
+ <input id="crimeType"
+placeholder="theft | robbery | cyber fraud | murder | kidnapping | rape | corruption">
+
+
+  <label>Severity Index (1–10)</label>
+  <input id="severity" type="number" min="1" max="10">
+
+  <button onclick="runAnalysis()">ANALYZE CASE</button>
+</section>
+
+<!-- SCAN -->
+<section id="scanBox" class="scan hidden">
+  <div class="ring"></div>
+  <p>AI ANALYZING LEGAL PATTERNS...</p>
+</section>
+
+<!-- RESULTS -->
+<section id="results" class="results hidden">
+  <div class="card">
+    <h3>Similar Cases</h3>
+    <p id="casesFound">0</p>
+  </div>
+
+  <div class="card">
+    <h3>Conviction Probability</h3>
+    <div class="bar">
+      <div id="convictionBar"></div>
+    </div>
+    <span id="convictionRate">0%</span>
+  </div>
+
+  <div class="card">
+    <h3>Common Failure</h3>
+    <p id="failure">—</p>
+  </div>
+</section>
+
+<!-- AI MESSAGE -->
+<section id="aiBox" class="ai-box hidden">
+  <div class="ai-header">🤖 AI LEGAL ASSISTANT</div>
+  <div class="ai-msg" id="aiMsg"></div>
+</section>
+
+<!-- CHARGES -->
+<section id="charges" class="charges hidden">
+  <h2>⚖ Automated Charge Recommendation</h2>
+  <p>IPC Sections: <span id="ipc"></span></p>
+  <p>Severity Level: <span id="level"></span></p>
+  <p>Bail Probability: <span id="bail"></span></p>
+</section>
+
+<script src="case-analysis.js"></script>
+</body>
+</html>
